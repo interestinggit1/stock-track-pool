@@ -5,7 +5,7 @@ import requests
 from datetime import datetime, timedelta
 
 # ===================== 核心配置（可按需修改）=====================
-FANGTANG_SEND_KEY = "你的方糖SendKey"  # 替换成你的方糖SendKey
+FANGTANG_SEND_KEY = "SCT303030TMwGN5ubOvqH1oVX20G0Hqg9s"  # 替换成你的方糖SendKey
 BATCH_SIZE = 30  # 每批读取30只，稳定防反爬
 SLEEP_TIME = 1.2  # 批次间隔1.2秒
 TARGET_MARKET_CAP = 200  # 市值≤200亿
