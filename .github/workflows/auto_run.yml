@@ -1,22 +1,32 @@
 name: A股跟踪推荐池自动运行
 on:
   schedule:
-    - cron: '0 8 * * 1-5'  # 北京时间16:00自动运行
-  workflow_dispatch:
+    - cron: '0 8 * * 1-5'  # UTC时间8点 = 北京时间16点，仅工作日运行
+  workflow_dispatch:  # 允许手动触发
 
 jobs:
   run-strategy:
     runs-on: ubuntu-latest
     env:
-      # 👇 关键：读取加密变量，代码里永远看不到明文
+      # 🔐 关键：从GitHub加密环境变量读取SendKey，代码无明文
       FANGTANG_SEND_KEY: ${{ secrets.FANGTANG_SEND_KEY }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install dependencies
-        run: pip install akshare pandas requests
+        run: pip install -r requirements.txt
+
       - name: Run strategy
         run: python main.py
+
+      - name: Upload CSV results
+        uses: actions/upload-artifact@v4
+        with:
+          name: stock-data
+          path: "*.csv"
