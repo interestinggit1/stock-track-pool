@@ -5,7 +5,7 @@ import requests
 from datetime import datetime, timedelta
 
 # ===================== 核心配置 =====================
-FANGTANG_SEND_KEY = "你的方糖SendKey"  # 改成你的
+FANGTANG_SEND_KEY = "SCT303030TMwGN5ubOvqH1oVX20G0Hqg9s"  # 改成你的
 TARGET_MARKET_CAP = 200  # 200亿市值以下
 MIN_LIST_DAYS = 100      # 上市超100天
 MIN_SCORE = 80           # 高分线
