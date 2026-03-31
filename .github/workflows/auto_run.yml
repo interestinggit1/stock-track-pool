@@ -1,14 +1,15 @@
 name: A股跟踪推荐池自动运行
 on:
   schedule:
-    - cron: '0 8 * * 1-5'
+    - cron: '0 8 * * 1-5'  # 北京时间16:00自动运行
   workflow_dispatch:
 
 jobs:
   run-strategy:
     runs-on: ubuntu-latest
     env:
-      FANGTANG_SEND_KEY: ${{ secrets.FANGTANG_SEND_KEY }}  # 👈 加上这行
+      # 👇 关键：读取加密变量，代码里永远看不到明文
+      FANGTANG_SEND_KEY: ${{ secrets.FANGTANG_SEND_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -16,6 +17,6 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install akshare pandas requests
       - name: Run strategy
         run: python main.py
